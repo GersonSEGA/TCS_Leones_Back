@@ -19,11 +19,10 @@ public class AlumnoProgramaDAOImpl implements IAlumnoProgramaDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public AlumnoPrograma getAlumnoProgramaById(String codAlumno) {
+	public List<AlumnoPrograma> getAlumnoProgramaById(String codAlumno) {
 		String sql = "SELECT ap.cod_alumno, ap.ape_paterno, ap.ape_materno, ap.nom_alumno, ap.cod_especialidad, ap.cod_tip_ingreso, ap.cod_situ, ap.cod_perm, ap.anio_ingreso, ap.dni_m, ap.id_programa,p.nom_programa FROM alumno_programa ap,programa p WHERE (ap.id_programa = p.id_programa) and (cod_alumno = ?)";
 		RowMapper<AlumnoPrograma> rowMapper =  new AlumnoProgramaRowMapper();//new BeanPropertyRowMapper<AlumnoPrograma>(AlumnoPrograma.class);
-		AlumnoPrograma alumnoPrograma = jdbcTemplate.queryForObject(sql, rowMapper, codAlumno);
-		return alumnoPrograma;
+		return this.jdbcTemplate.query(sql, rowMapper, codAlumno);
 	}
 	
 	@Override

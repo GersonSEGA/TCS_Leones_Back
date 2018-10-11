@@ -92,24 +92,24 @@ public class AlumnoProgramaController {
 	
 	
 	@RequestMapping(value = "/buscarc/{codAlumno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AlumnoPrograma> getAlumnoProgramaByCodAlumno(@PathVariable("codAlumno") String codAlumno) {
+	public ResponseEntity<List<AlumnoPrograma>> getAlumnoProgramaByCodAlumno(@PathVariable("codAlumno") String codAlumno) {
 		logger.info("> getAlumnoProgramaByCodAlumno [AlumnoPrograma]");
 
-		AlumnoPrograma alum = null;
+		List<AlumnoPrograma> list = null;
 		try {
-			alum = service.getAlumnoProgramaById(codAlumno);
+			list = service.getAlumnoProgramaById(codAlumno);
 
-			if (alum == null) {
-				alum = new AlumnoPrograma();
+			if (list == null) {
+				list = new ArrayList<AlumnoPrograma>();
 			}
 			
 		} catch (Exception e) {
 			logger.error("Unexpected Exception caught.", e);
-			return new ResponseEntity<AlumnoPrograma>(alum, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<List<AlumnoPrograma>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		logger.info("< getAlumnoProgramaByCodAlumno [AlumnoPrograma]");
-		return new ResponseEntity<AlumnoPrograma>(alum, HttpStatus.OK);
+		return new ResponseEntity<List<AlumnoPrograma>>(list, HttpStatus.OK);
 	}
 	
 	
