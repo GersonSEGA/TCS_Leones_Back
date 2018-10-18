@@ -70,7 +70,7 @@ public class AlumnoAlumnoProgramaController {
 		return new ResponseEntity<List<AlumnoAlumnoPrograma>>(list, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/add", method = RequestMethod.POST/*, consumes = MediaType.APPLICATION_JSON_VALUE*/, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AlumnoAlumnoPrograma> addAlumnoAlumnoPrograma(@RequestBody AlumnoAlumnoPrograma alumnoAlumnoPrograma) {
 
 		logger.info("> addAlumnoAlumnoPrograma [AlumnoAlumnoPrograma]");
