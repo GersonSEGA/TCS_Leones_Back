@@ -90,7 +90,6 @@ public class AlumnoProgramaController {
 	}
 	
 	
-	//FUCCCKKKKK
 	@RequestMapping(value = "/buscarc/{codAlumno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AlumnoPrograma>> getAlumnoProgramaByCodAlumno(@PathVariable("codAlumno") String codAlumno) {
 		logger.info("> getAlumnoProgramaByCodAlumno [AlumnoPrograma]");
