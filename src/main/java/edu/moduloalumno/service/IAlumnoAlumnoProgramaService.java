@@ -12,7 +12,7 @@ public interface IAlumnoAlumnoProgramaService {
 	
 	AlumnoAlumnoPrograma addAlumnoAlumnoPrograma(AlumnoAlumnoPrograma alumnoAlumnoPrograma);
 
-	void updateAlumnoAlumnoPrograma(AlumnoAlumnoPrograma alumnoAlumnoPrograma);
+	void updateAlumnoAlumnoPrograma(Integer id_alum, String cod_alumno, Integer id_programa);
 
 	void deleteAlumnoAlumnoPrograma(int idAlum);
 }

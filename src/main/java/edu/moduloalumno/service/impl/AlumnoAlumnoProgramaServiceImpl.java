@@ -31,8 +31,8 @@ public class AlumnoAlumnoProgramaServiceImpl implements IAlumnoAlumnoProgramaSer
 	}
 
 	@Override
-	public void updateAlumnoAlumnoPrograma(AlumnoAlumnoPrograma alumnoAlumnoPrograma) {
-		alumnoAlumnoProgramaDAO.updateAlumnoAlumnoPrograma(alumnoAlumnoPrograma);
+	public void updateAlumnoAlumnoPrograma(Integer id_alum, String cod_alumno, Integer id_programa) {
+		alumnoAlumnoProgramaDAO.updateAlumnoAlumnoPrograma(id_alum, cod_alumno, id_programa);
 	}
 
 	@Override

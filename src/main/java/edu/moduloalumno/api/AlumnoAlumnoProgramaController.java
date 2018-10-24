@@ -73,17 +73,33 @@ public class AlumnoAlumnoProgramaController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AlumnoAlumnoPrograma> addAlumnoAlumnoPrograma(@RequestBody AlumnoAlumnoPrograma alumnoAlumnoPrograma) {
 
-		logger.info("> addAlumnoAlumnoPrograma [AlumnoAlumnoPrograma]");
+		logger.info("> addAlumnoAlumnoPrograma [AlumnoAlumnoPrograma]"+alumnoAlumnoPrograma);
 		
 		AlumnoAlumnoPrograma newAlumnoAlumnoPrograma = null;
 		try {
 			newAlumnoAlumnoPrograma = service.addAlumnoAlumnoPrograma(alumnoAlumnoPrograma);
+			logger.info(">try [AlumnoAlumnoPrograma]"+newAlumnoAlumnoPrograma);
 		} catch (Exception e) {
+			logger.info("> catch [AlumnoAlumnoPrograma]"+alumnoAlumnoPrograma+" "+e.getMessage());
 			return new ResponseEntity<AlumnoAlumnoPrograma>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		logger.info("> addAlumnoAlumnoPrograma [AlumnoAlumnoPrograma]");
 		return new ResponseEntity<AlumnoAlumnoPrograma>(newAlumnoAlumnoPrograma, HttpStatus.CREATED);
 	}
+        
+        @RequestMapping(value = "/actualizar/{id_alum}/{cod_alumno}/{id_programa}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+        public void updateAlumnoAlumnoPrograma(@PathVariable("id_alum") Integer id_alum, @PathVariable("cod_alumno") String cod_alumno, @PathVariable("id_programa") Integer id_programa){
+            
+            logger.info("> Commo00n: " + id_alum + " " + cod_alumno + " " + id_programa);
+            Integer response = 0;
+            
+            try{
+                 service.updateAlumnoAlumnoPrograma(id_alum, cod_alumno, id_programa);
+            } catch(Exception e){
+                logger.error("Unexpected Exception caught. "+ e.getMessage());
+            }
+            
+        } 
 
 }

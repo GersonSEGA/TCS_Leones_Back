@@ -39,13 +39,12 @@ public class AlumnoAlumnoProgramaDAOImpl implements IAlumnoAlumnoProgramaDAO {
 	@Override
 	public AlumnoAlumnoPrograma addAlumnoAlumnoPrograma(AlumnoAlumnoPrograma alumnoAlumnoPrograma) {
 		// Add alumnoAlumnoPrograma
+		
 		String sql = "INSERT INTO alumno_alumno_programa (id_alum, cod_alumno, id_programa) values (?, ?, ?)";
-		jdbcTemplate.update(sql, alumnoAlumnoPrograma.getIdAlumno(), alumnoAlumnoPrograma.getCodAlumno(),
-				alumnoAlumnoPrograma.getIdPrograma());
+		jdbcTemplate.update(sql, alumnoAlumnoPrograma.getIdAlumno(), alumnoAlumnoPrograma.getCodAlumno(),alumnoAlumnoPrograma.getIdPrograma());
 
 		sql = "SELECT * FROM alumno_alumno_programa WHERE id_alum = ? and cod_alumno = ? and id_programa = ?";
-		RowMapper<AlumnoAlumnoPrograma> rowMapper = new BeanPropertyRowMapper<AlumnoAlumnoPrograma>(
-				AlumnoAlumnoPrograma.class);
+		RowMapper<AlumnoAlumnoPrograma> rowMapper = new AlumnoAlumnoProgramaRowMapper();
 		AlumnoAlumnoPrograma alumnoAlumnoProgramaNew = jdbcTemplate.queryForObject(sql, rowMapper,
 				alumnoAlumnoPrograma.getIdAlumno(), alumnoAlumnoPrograma.getCodAlumno(),
 				alumnoAlumnoPrograma.getIdPrograma());
@@ -57,10 +56,9 @@ public class AlumnoAlumnoProgramaDAOImpl implements IAlumnoAlumnoProgramaDAO {
 	}
 
 	@Override
-	public void updateAlumnoAlumnoPrograma(AlumnoAlumnoPrograma alumnoAlumnoPrograma) {
+	public void updateAlumnoAlumnoPrograma(Integer id_alum, String cod_alumno, Integer id_programa) {
 		String sql = "UPDATE alumno_alumno_programa SET cod_alumno = ?, id_programa = ? WHERE id_alum = ?";
-		jdbcTemplate.update(sql, alumnoAlumnoPrograma.getCodAlumno(), alumnoAlumnoPrograma.getIdPrograma(),
-				alumnoAlumnoPrograma.getIdAlumno());
+		jdbcTemplate.update(sql, cod_alumno, id_programa, id_alum);
 	}
 
 	@Override
