@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.moduloalumno.dao.IRecaudacionesDAO;
 import edu.moduloalumno.entity.Recaudaciones;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
 import edu.moduloalumno.service.IRecaudacionesService;
 
 @Service
@@ -143,6 +144,11 @@ public class RecaudacionesServiceImpl implements IRecaudacionesService {
 		
 		return recaudacionesList;
 	}
+
+        @Override
+        public List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConcepto() {
+            return recaudacionesDAO.getRecaudacionesJOINAlumnoJOINConcepto();
+        }
 
 }
 

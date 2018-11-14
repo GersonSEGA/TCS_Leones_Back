@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.moduloalumno.dao.IRecaudacionesDAO;
 import edu.moduloalumno.entity.Recaudaciones;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
+import edu.moduloalumno.rowmapper.RecaudacionesJOINAlumnoJOINConceptoRowMapper;
 import edu.moduloalumno.rowmapper.RecaudacionesRowMapper;
 
 @Transactional
@@ -161,6 +163,13 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 		RowMapper<Recaudaciones> rowMapper = new RecaudacionesRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper, recibo);
 	}
+        
+        @Override
+        public List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConcepto() {
+            String sql = "select b.ape_nom,c.concepto,a.fecha,a.id_rec,a.numero,a.* from recaudaciones a, alumno b, concepto c where (a.id_alum=b.id_alum and a.id_concepto=c.id_concepto and a.id_concepto in (select id_concepto from concepto where id_clase_pagos=2)) and a.id_alum not in (select id_alum from alumno_alumno_programa) order by c.concepto";
+            RowMapper<RecaudacionesJOINAlumnoJOINConcepto> rowMapper = new RecaudacionesJOINAlumnoJOINConceptoRowMapper();
+            return this.jdbcTemplate.query(sql, rowMapper);
+        }
 
 	//@Override
 	/*public void addRecaudaciones(Recaudaciones recaudaciones) {
@@ -193,4 +202,6 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 		jdbcTemplate.update(sql, idRecaudaciones);
 	}
 	*/
+
+    
 }

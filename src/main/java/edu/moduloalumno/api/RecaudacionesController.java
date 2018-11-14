@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.moduloalumno.entity.Recaudaciones;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
 import edu.moduloalumno.model.Filtro;
 import edu.moduloalumno.service.IRecaudacionesService;
 import edu.moduloalumno.util.Operaciones;
@@ -52,6 +53,22 @@ public class RecaudacionesController {
 		return new ResponseEntity<List<Recaudaciones>>(list, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/listar/posgrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<List<RecaudacionesJOINAlumnoJOINConcepto>> getRecaudacionesJOINAlumnoJOINConcepto(){
+            
+            List<RecaudacionesJOINAlumnoJOINConcepto> list = null;
+            try{
+                list = recaudacionesService.getRecaudacionesJOINAlumnoJOINConcepto();
+                if(list == null){
+                    list = new ArrayList<RecaudacionesJOINAlumnoJOINConcepto>();
+                }
+            } catch(Exception e){
+                logger.info("Unexpected Exception caught.", e.getMessage());
+                return new ResponseEntity<List<RecaudacionesJOINAlumnoJOINConcepto>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            return new ResponseEntity<List<RecaudacionesJOINAlumnoJOINConcepto>>(list, HttpStatus.OK);
+        }
+	
 	
 	/* loco*/ 
 	@RequestMapping(value = "/rec/{recibo}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,8 +93,6 @@ public class RecaudacionesController {
 		return new ResponseEntity<List<Recaudaciones>>(list, HttpStatus.OK);
 
 	}
-	
-	
 	
 	@RequestMapping(value = "/listar/{nomApe}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recaudaciones>> getRecaudacionesByNomApe(@PathVariable("nomApe") String nomApe) {
@@ -168,52 +183,34 @@ public class RecaudacionesController {
 		logger.info("> filterByAlumno [Recaudaciones]");
 
 		String fechaFinal = filtro.getFechaFinal();
-
 		String nom_ape = filtro.getNom_ape();
-
 		String fechaInicial = filtro.getFechaInicial();
-
 		String[] conceptos = filtro.getConceptos();
-
 		String[] recibos = filtro.getRecibos();
-
 		List<Recaudaciones> list01 = new ArrayList<Recaudaciones>();
 		List<Recaudaciones> list02 = new ArrayList<Recaudaciones>();
 		List<Recaudaciones> list03 = null;
-
 		Date fInicial;
 		Date fFinal;
-
 		DateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
-
 		Operaciones operacion = new Operaciones();
-
 		try {
-
 			for (String concepto : conceptos) {
 				list01 = operacion.union(list01,
 						recaudacionesService.getRecaudacionesByNomApeConcepto(concepto, nom_ape));
 			}
-
 			logger.info("LISTA DE RECAUDACIONES POR CONCEPTO: \n" + list01);
-
 			for (String recibo : recibos) {
 				list02 = operacion.union(list02, recaudacionesService.getRecaudacionesByNomApeRecibo(recibo, nom_ape));
 			}
-
 			logger.info("LISTA DE RECAUDACIONES POR RECIBOS: \n" + list02);
-
 			fInicial = formateador.parse(fechaInicial);
 			fFinal = formateador.parse(fechaFinal);
-
 			list03 = recaudacionesService.getRecaudacionesByNomApeStartDateBetween(nom_ape, fInicial, fFinal);
-
 			if (list03 == null) {
 				list03 = new ArrayList<Recaudaciones>();
 			}
-
 			logger.info("LISTA DE RECAUDACIONES POR FECHAS: \n" + list03);
-
 			list03 = operacion.intersection(list03, conceptos.length != 0 ? list01 : list03);
 			list03 = operacion.intersection(list03, recibos.length != 0 ? list02 : list03);
 
@@ -225,5 +222,7 @@ public class RecaudacionesController {
 		logger.info("< filterByAlumno [Recaudaciones]");
 		return new ResponseEntity<List<Recaudaciones>>(list03, HttpStatus.OK);
 	}
+        
+        
 
 }

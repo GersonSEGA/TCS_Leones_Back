@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.moduloalumno.entity.Recaudaciones;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
 
 public interface IRecaudacionesService {
 	
@@ -30,6 +31,8 @@ public interface IRecaudacionesService {
 	List<Recaudaciones> getRecaudacionesByNombresApellidosConcepto(String concepto, String nombres, String apellidos);
 	
 	List<Recaudaciones> getRecaudacionesByNombresApellidosRecibo( String recibo, String nombres, String apellidos);
+        
+        List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConcepto();
 	
 	Recaudaciones getRecaudacionesById(int idRecaudaciones);
 
