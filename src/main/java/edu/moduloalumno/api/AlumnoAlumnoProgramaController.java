@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.moduloalumno.entity.AlumnoAlumnoPrograma;
 import edu.moduloalumno.service.IAlumnoAlumnoProgramaService;
+import javax.ws.rs.POST;
 
 @RestController
 @RequestMapping("/alumnoalumnoprograma")
@@ -101,5 +102,15 @@ public class AlumnoAlumnoProgramaController {
             }
             
         } 
+        
+        @RequestMapping(value = "/eliminar/{id_alum}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+        public void deleteAlumnoAlumnoPrograma(@PathVariable("id_alum") Integer id_alum){
+            logger.info("> CommoOOn: " + id_alum);
+            try{
+                service.deleteAlumnoAlumnoPrograma(id_alum);
+            } catch(Exception e){
+                logger.error("Unexpected Exception caught. "+ e.getMessage());
+            }
+        }
 
 }

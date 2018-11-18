@@ -36,7 +36,7 @@ public class AlumnoAlumnoProgramaServiceImpl implements IAlumnoAlumnoProgramaSer
 	}
 
 	@Override
-	public void deleteAlumnoAlumnoPrograma(int idAlum) {
-		alumnoAlumnoProgramaDAO.deleteAlumnoAlumnoPrograma(idAlum);
+	public void deleteAlumnoAlumnoPrograma(int id_alum) {
+		alumnoAlumnoProgramaDAO.deleteAlumnoAlumnoPrograma(id_alum);
 	}
 }

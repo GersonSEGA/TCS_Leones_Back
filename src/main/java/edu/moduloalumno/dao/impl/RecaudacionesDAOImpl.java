@@ -166,7 +166,7 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
         
         @Override
         public List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConcepto() {
-            String sql = "select b.ape_nom,c.concepto,a.fecha,a.id_rec,a.numero,a.* from recaudaciones a, alumno b, concepto c where (a.id_alum=b.id_alum and a.id_concepto=c.id_concepto and a.id_concepto in (select id_concepto from concepto where id_clase_pagos=2)) and a.id_alum not in (select id_alum from alumno_alumno_programa) order by c.concepto";
+            String sql = "select b.ape_nom,c.concepto,a.fecha,a.id_rec,a.numero,a.* from recaudaciones a, alumno b, concepto c where (a.id_alum=b.id_alum and a.id_concepto=c.id_concepto and a.id_concepto in (select id_concepto from concepto where id_clase_pagos=2)) and a.id_alum not in (select id_alum from alumno_alumno_programa) order by b.ape_nom";
             RowMapper<RecaudacionesJOINAlumnoJOINConcepto> rowMapper = new RecaudacionesJOINAlumnoJOINConceptoRowMapper();
             return this.jdbcTemplate.query(sql, rowMapper);
         }

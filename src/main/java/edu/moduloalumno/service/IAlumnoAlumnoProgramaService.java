@@ -14,5 +14,5 @@ public interface IAlumnoAlumnoProgramaService {
 
 	void updateAlumnoAlumnoPrograma(Integer id_alum, String cod_alumno, Integer id_programa);
 
-	void deleteAlumnoAlumnoPrograma(int idAlum);
+	void deleteAlumnoAlumnoPrograma(int id_alum);
 }

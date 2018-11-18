@@ -62,9 +62,9 @@ public class AlumnoAlumnoProgramaDAOImpl implements IAlumnoAlumnoProgramaDAO {
 	}
 
 	@Override
-	public void deleteAlumnoAlumnoPrograma(int idAlum) {
+	public void deleteAlumnoAlumnoPrograma(int id_alum) {
 		String sql = "DELETE FROM alumno_alumno_programa WHERE id_alum = ?";
-		jdbcTemplate.update(sql, idAlum);
+		jdbcTemplate.update(sql, id_alum);
 	}
 
 }
