@@ -8,7 +8,7 @@ public interface IProgramaService {
 	
 	List<Programa> getAllProgramas();
 
-	Programa getProgramaById(int idPrograma);
+	Programa getProgramaById(int id_Programa);
 
 	void addPrograma(Programa programa);
 

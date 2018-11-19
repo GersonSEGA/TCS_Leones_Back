@@ -19,10 +19,10 @@ public class ProgramaDAOImpl implements IProgramaDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public Programa getProgramaById(int idPrograma) {
+	public Programa getProgramaById(int id_Programa) {
 		String sql = "SELECT id_programa, nom_programa, sigla_programa, vigencia_programa, id_tip_grado FROM programa WHERE id_programa = ?";
-		RowMapper<Programa> rowMapper = new BeanPropertyRowMapper<Programa>(Programa.class);
-		Programa programa = jdbcTemplate.queryForObject(sql, rowMapper, idPrograma);
+		RowMapper<Programa> rowMapper = new ProgramaRowMapper();
+		Programa programa = jdbcTemplate.queryForObject(sql, rowMapper, id_Programa);
 		return programa;
 	}
 

@@ -15,9 +15,8 @@ public class ProgramaServiceImpl implements IProgramaService {
 	private IProgramaDAO ProgramaDAO;
 
 	@Override
-	public Programa getProgramaById(int idPrograma) {
-		Programa Programa = ProgramaDAO.getProgramaById(idPrograma);
-		return Programa;
+	public Programa getProgramaById(int id_Programa) {
+            return ProgramaDAO.getProgramaById(id_Programa);
 	}
 
 	@Override
