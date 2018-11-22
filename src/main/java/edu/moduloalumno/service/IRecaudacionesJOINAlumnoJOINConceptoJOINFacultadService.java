@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.moduloalumno.entity.CodigosporNomApe;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
 import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad;
 
 public interface IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadService {
@@ -52,4 +53,6 @@ public interface IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadService {
 	public int updateRecaudacionesCodAlumni(Integer id_rec,String cod_alumno);
 	
 	void deleteRecaudacionesJOINAlumnoJOINConceptoJOINFacultad(int idRec);
+        
+        List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConceptoByApeNom(String ape_nom);
 }

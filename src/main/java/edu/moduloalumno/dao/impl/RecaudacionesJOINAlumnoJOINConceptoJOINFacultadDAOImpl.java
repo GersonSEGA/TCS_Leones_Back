@@ -14,10 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.moduloalumno.dao.IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAO;
 import edu.moduloalumno.entity.CodigosporNomApe;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
 
 import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad;
 import edu.moduloalumno.rowmapper.CodigosporNomApeRowMapper;
 import edu.moduloalumno.rowmapper.RecaudacionesJOINAlumnoJOINConceptoJOINFacultadRowMapper;
+import edu.moduloalumno.rowmapper.RecaudacionesJOINAlumnoJOINConceptoRowMapper;
 
 @Transactional
 @Repository
@@ -221,6 +223,14 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 			return false;
 		}
 	}
+
+    @Override
+    public List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConceptoByApeNom(String ape_nom) {
+        String sql = "select a.ape_nom, c.concepto, r.fecha, r.id_rec, r.numero, r.id_alum, r.moneda, r.importe from recaudaciones r, alumno a, concepto c WHERE to_tsquery( translate( ? ,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ) @@ to_tsvector(coalesce(translate( a.ape_nom ,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU'))) and a.id_alum = r.id_alum and c.id_concepto = r.id_concepto";
+        RowMapper<RecaudacionesJOINAlumnoJOINConcepto> rowMapper = new RecaudacionesJOINAlumnoJOINConceptoRowMapper();
+        
+        return this.jdbcTemplate.query(sql, rowMapper, ape_nom);
+    }
 	
 	
 	

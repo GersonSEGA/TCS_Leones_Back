@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad;
 import edu.moduloalumno.entity.CodigosporNomApe;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
 import edu.moduloalumno.model.DataActualizar;
 import edu.moduloalumno.model.Filtro;
 import edu.moduloalumno.service.IConceptoService;
@@ -29,7 +30,7 @@ import edu.moduloalumno.util.Operaciones;
 
 
 @RestController
-@RequestMapping("recaudaciones/alumno/concepto")
+@RequestMapping("/recaudaciones/alumno/concepto")
 public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -370,6 +371,23 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 		
 		return response;
 	}
+        
+        @RequestMapping(value = "/buscar/{ape_nom}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<List<RecaudacionesJOINAlumnoJOINConcepto>> getRecaudacionesJOINAlumnoJOINConceptoByApeNom(@PathVariable("ape_nom") String ape_nom) {
+
+            logger.info("> getRecaudacionesJOINAlumnoJOINConceptoByApeNom[RecaudacionesJOINAlumnoJOINConcepto]");
+            ArrayList<RecaudacionesJOINAlumnoJOINConcepto> recaudaciones = null;
+
+            try{
+                recaudaciones = (ArrayList<RecaudacionesJOINAlumnoJOINConcepto>) recaudacionesJOINAlumnoJOINConceptoJOINFacultadservice.getRecaudacionesJOINAlumnoJOINConceptoByApeNom(ape_nom);
+            } catch(Exception e){
+                logger.error("Unexpected Exception caught.", e);
+                return new ResponseEntity<List<RecaudacionesJOINAlumnoJOINConcepto>>(recaudaciones, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            logger.info("< getRecaudacionesJOINAlumnoJOINConceptoByApeNom[RecaudacionesJOINAlumnoJOINConcepto]");
+            return new ResponseEntity<List<RecaudacionesJOINAlumnoJOINConcepto>>(recaudaciones, HttpStatus.OK);
+
+        }
 
 
 }

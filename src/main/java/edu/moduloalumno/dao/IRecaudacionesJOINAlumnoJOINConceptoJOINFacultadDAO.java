@@ -1,6 +1,7 @@
 package edu.moduloalumno.dao;
 
 import edu.moduloalumno.entity.CodigosporNomApe;
+import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConcepto;
 import java.util.Date;
 import java.util.List;
 
@@ -47,5 +48,7 @@ public interface IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAO {
 	public int updateRecaudacionesCodAlumno(Integer id_rec,String cod_alumno);
 	
 	void deleteRecaudacionesJOINAlumnoJOINConceptoJOINFacultad(int idRec);
+        
+        public List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConceptoByApeNom(String ape_nom);
 
 }
