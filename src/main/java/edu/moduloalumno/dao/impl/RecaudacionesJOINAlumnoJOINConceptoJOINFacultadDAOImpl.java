@@ -228,7 +228,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
     public List<RecaudacionesJOINAlumnoJOINConcepto> getRecaudacionesJOINAlumnoJOINConceptoByApeNom(String ape_nom) {
         String sql = "select a.ape_nom, c.concepto, r.fecha, r.id_rec, r.numero, r.id_alum, r.moneda, r.importe from recaudaciones r, alumno a, concepto c WHERE to_tsquery( translate( ? ,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ) @@ to_tsvector(coalesce(translate( a.ape_nom ,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU'))) and a.id_alum = r.id_alum and c.id_concepto = r.id_concepto order by r.fecha desc";
         RowMapper<RecaudacionesJOINAlumnoJOINConcepto> rowMapper = new RecaudacionesJOINAlumnoJOINConceptoRowMapper();
-        System.out.println("verga");
+        
         return this.jdbcTemplate.query(sql, rowMapper, ape_nom);
     }
 	
